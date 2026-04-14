@@ -26,6 +26,7 @@ class WeatherViewModel : ViewModel() {
             _weatherState.value = _weatherState.value.copy(
                 isLoading = true,
                 error = null,
+                loadingProgress = "Запуск программы..."
             )
             try {
                 val temperatureDeferred = async { repository.fetchTemperature() }
@@ -47,6 +48,7 @@ class WeatherViewModel : ViewModel() {
                 _weatherState.value = _weatherState.value.copy(
                     isLoading = false,
                     error = "Ошибка загрузки: ${e.message}",
+                    loadingProgress = ""
                 )
             }
         }
