@@ -6,9 +6,11 @@ import com.rudy.weatherdashboard.data.WeatherData
 import com.rudy.weatherdashboard.data.WeatherRepository
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
@@ -20,6 +22,7 @@ class WeatherViewModel : ViewModel() {
 
     init {
         loadWeatherData()
+        startAutoRefresh()
     }
 
     fun loadWeatherData() {
@@ -73,5 +76,18 @@ class WeatherViewModel : ViewModel() {
 
     fun toggleErrorSimulation(){
         repository.toggleErrorSimulation()
+    }
+
+    fun startAutoRefresh() {
+        viewModelScope.launch {
+            flow {
+                while (true) {
+                    delay(10000)
+                    emit(Unit)
+                }
+            }.collect {
+                loadWeatherData()
+            }
+        }
     }
 }
