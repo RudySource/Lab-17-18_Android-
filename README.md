@@ -3,8 +3,11 @@
 
 ## Основная информация
 **ФИО**: Rudy Rudy Rudy
+
 **Группа**: ИСП-233
+
 **Дата**: 24.08.2077
+
 ---
 
 ## Описание проекта
@@ -102,7 +105,7 @@ println(result.await())
 ```kotlin
 launch {
     try {
-        // код
+        // рабочий код
     } catch (e: Exception) {
         println(e.message)
     }
